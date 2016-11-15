@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Demo Hub</title>
+    <meta name="description" content="Demo Hub">
+    <meta name="author" content="Demo Hub">
+    <!-- css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="main.css">
+    <!-- font -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <!-- js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+    <script src="main.js"></script>
+</head>
+
+<body ng-app="demoHub" ng-controller="MainController">
+    <nav>
+        <div class="nav-wrapper amber">
+            <a href="#" class="brand-logo center">Demo Hub</a>
+            <span class="URL-text"> 
+                <b>URL: </b>
+                <input class="black-text center text-input" type="text" ng-model="inputWebAddress">
+            </span>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a onclick="$('#addDeviceModal').openModal();">Add New Device</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="main-cot">
+        <div class="input-website" ng-if="demo">
+            <h4>{{inputWebAddress}}</h4>
+            <input class="text-input" type="text" ng-model="inputWebAddress">
+            <p>
+                <a class="waves-effect waves-light btn green" ng-click="closeDemo()">Start Now</a>
+            </p>
+        </div>
+        <div id="addDeviceModal" class="modal modal-fixed-footer" ng-model="device">
+            <div class="modal-content">
+                <h4>Add new device</h4>
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="title" type="text" class="validate" ng-model="device.title">
+                            <label for="title">Device Name: {{device.title}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <select ng-model="device.type">
+                                <option value="" disabled selected>Choose your device type</option>
+                                <option value="phone">Phone</option>
+                                <option value="tablet">Tablet</option>
+                                <option value="monitor">Monitor</option>
+                            </select>
+                            <label>Device Type</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <form action="#">
+                            <label>Screen Width: {{device.width}} px</label>
+                            <p class="range-field">
+                                <input type="range" id="width" min="1" max="3000" ng-model="device.width" />
+                            </p>
+                        </form>
+                    </div>
+                    <div class="row">
+                        <form action="#">
+                            <label>Screen Height {{device.height}} px</label>
+                            <p class="range-field">
+                                <input type="range" id="height" min="1" max="3000" ng-model="device.height" />
+                            </p>
+                        </form>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" id="add" class="modal-action modal-close waves-effect waves-green btn-flat" ng-click="save(device)">Add</a>
+            </div>
+        </div>
+        <div class="slideshow">
+            <div class="device-card" ng-repeat="d in currentDevices track by $index">
+                <p class="device-card-info">{{d.title}} ({{d.width}} X {{d.height}})</p>
+                <div class="device {{d.type}}">
+                    <iframe class="screen" ng-src="{{inputWebAddress}}" ng-style="{'width': d.width, 'height': d.height}"></iframe>
+                    <div class="home-button"></div>
+                </div>
+                <div class="stand"></div>
+                <a href="#!" class="btn-floating waves-effect waves-light red" ng-click="delete($index)"><i class="material-icons">delete</i></a>
+            </div>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+
+</html>
