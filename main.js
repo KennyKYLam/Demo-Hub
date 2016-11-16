@@ -9,8 +9,15 @@ var app = angular.module('demoHub', []).config(function($sceDelegateProvider) {
 });
 app.controller('MainController', function($scope) {
     $scope.inputWebAddress = "https://ubereats.com/toronto/";
+    $scope.preset = [
+        { title: "iPhone 7 Plus", type: "phone", width: 414, height: 628 },
+        { title: "iPhone 7", type: "phone", width: 375, height: 559 },
+        { title: "iPhone 4", type: "phone", width: 320, height: 480 }
+    ]
     $scope.currentDevices = [];
     $scope.demo = true;
+    $scope.maxWidth = window.innerWidth - 200;
+    $scope.maxHeight = 1000;
     var defaultDevice = {
         title: "Kenny's Phone",
         type: "phone",
@@ -23,7 +30,7 @@ app.controller('MainController', function($scope) {
         $scope.device = {
             title: "Kenny's Phone",
             type: "phone",
-            width: 400,
+            width: 380,
             height: 450,
         };
     };
@@ -31,8 +38,8 @@ app.controller('MainController', function($scope) {
         $scope.currentDevices.splice(index, 1);
     };
     $scope.closeDemo = function() {
-        $('#addDeviceModal').openModal(); 
-        $scope.demo = false; 
+        $('#addDeviceModal').openModal();
+        $scope.demo = false;
         $scope.currentDevices = [];
     };
     //Demo
@@ -58,4 +65,5 @@ app.controller('MainController', function($scope) {
 
 $(document).ready(function() {
     $('select').material_select();
+    $(".dropdown-button").dropdown();
 });

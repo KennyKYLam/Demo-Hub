@@ -22,20 +22,24 @@
 </head>
 
 <body ng-app="demoHub" ng-controller="MainController">
+    <ul id="dropdown1" class="dropdown-content">
+        <li ng-repeat="p in preset track by $index"><a href="#!" ng-click="save(p)">{{p.title}}</a></li>
+    </ul>
     <nav>
         <div class="nav-wrapper amber">
             <a href="#" class="brand-logo center">Demo Hub</a>
-            <span class="URL-text"> 
+            <span class="URL-text" ng-hide="demo"> 
                 <b>URL: </b>
                 <input class="black-text center text-input" type="text" ng-model="inputWebAddress">
             </span>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a onclick="$('#addDeviceModal').openModal();">Add New Device</a></li>
+            <ul id="nav-mobile" class="right" ng-hide="demo">
+                <li><a onclick="$('#addDeviceModal').openModal();">Add Custom Device</a></li>
+                <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Add Preset Devices<i class="material-icons right">arrow_drop_down</i></a></li>
             </ul>
         </div>
     </nav>
     <div class="main-cot">
-        <div class="input-website" ng-if="demo">
+        <div class="input-website" ng-show="demo">
             <h4>{{inputWebAddress}}</h4>
             <input class="text-input" type="text" ng-model="inputWebAddress">
             <p>
@@ -67,7 +71,7 @@
                         <form action="#">
                             <label>Screen Width: {{device.width}} px</label>
                             <p class="range-field">
-                                <input type="range" id="width" min="1" max="3000" ng-model="device.width" />
+                                <input type="range" id="width" min="1" max="{{maxWidth}}" ng-model="device.width" />
                             </p>
                         </form>
                     </div>
@@ -75,7 +79,7 @@
                         <form action="#">
                             <label>Screen Height {{device.height}} px</label>
                             <p class="range-field">
-                                <input type="range" id="height" min="1" max="3000" ng-model="device.height" />
+                                <input type="range" id="height" min="1" max="{{maxHeight}}" ng-model="device.height" />
                             </p>
                         </form>
                     </div>
